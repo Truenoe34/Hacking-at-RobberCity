@@ -1,0 +1,20 @@
+import sys
+
+def xor_bytes(b1, b2):
+    return bytes(a ^ b for a, b in zip(b1, b2))
+
+# Зчитуємо три зашифровані повідомлення з входу
+msg1 = bytes.fromhex(input().strip())
+msg2 = bytes.fromhex(input().strip())
+msg3 = bytes.fromhex(input().strip())
+
+# Вираховуємо M за формулою: M = msg1 XOR msg2 XOR msg3
+# Оскільки XOR асоціативний: (msg1 ^ msg2) ^ msg3
+temp = xor_bytes(msg1, msg2)
+original_message = xor_bytes(temp, msg3)
+
+# Виводимо розшифроване повідомлення у вигляді тексту (або hex, залежно від вимог тесту)
+try:
+    print(original_message.decode('utf-8'))
+except UnicodeDecodeError:
+    print(original_message.hex())
